@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering/features/on_boarding/presentation/screens/on_boarding_screen.dart';
 import 'package:food_ordering/utils/themes.dart';
 
 void main() => runApp(const MyApp());
@@ -12,14 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Food Ordering',
       theme: lightMode,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      home: const OnBoardingScreen(),
     );
   }
 }
