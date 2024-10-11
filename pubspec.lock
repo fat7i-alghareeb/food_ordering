@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  beamer:
+    dependency: "direct main"
+    description:
+      name: beamer
+      sha256: "4abb83a74f27c84fd0b59675eb0f6448f5e0c431f857bd2d0bc244c52b15893b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.7.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -70,8 +78,21 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "8239210dd68bee6b0577aa4a090890342d04a136ce1c81f98ee513fc0ce891de"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.3"
   flutter_test:
     dependency: "direct dev"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -210,3 +231,4 @@ packages:
     version: "13.0.0"
 sdks:
   dart: ">=3.3.4 <4.0.0"
+  flutter: ">=3.10.0"

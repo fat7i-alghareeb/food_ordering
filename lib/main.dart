@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering/utils/themes.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,7 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
+      title: 'Food Ordering',
+      theme: lightMode,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Material App Bar'),
