@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_ordering/features/home/presentation/screens/widgets/home_screen.dart';
+import 'package:food_ordering/features/home/presentation/screens/home_screen.dart';
 import 'package:food_ordering/features/on_boarding/presentation/screens/on_boarding_screen.dart';
 import 'package:food_ordering/utils/extensions.dart';
 import 'package:food_ordering/utils/themes.dart';

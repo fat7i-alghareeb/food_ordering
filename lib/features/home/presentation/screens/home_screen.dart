@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_ordering/utils/extensions.dart';
-import 'widgets/on_boarding_body.dart';
+import 'widgets/home_body.dart';
 
-class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        systemNavigationBarColor: context.primaryColor(),
+        systemNavigationBarColor: context.backgroundColor(),
       ),
     );
-    return Scaffold(
-      backgroundColor: context.primaryColor(),
-      body: const OnBoardingBody(),
+    return const Scaffold(
+      body: SafeArea(
+        child: HomeBody(),
+      ),
     );
   }
 }

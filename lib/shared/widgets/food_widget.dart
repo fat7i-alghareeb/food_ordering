@@ -1,0 +1,119 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_ordering/utils/extensions.dart';
+
+import '../../utils/app_text_styles.dart';
+import '../../utils/assets.dart';
+import '../../utils/constants.dart';
+import '../../utils/spacing.dart';
+import 'app_icon.dart';
+
+class FoodWidget extends StatelessWidget {
+  const FoodWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 196.h,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.only(left: 20.w),
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Container(
+            width: 318.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Constants.borderRadius),
+              color: context.tertiaryColor(),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+              child: Row(
+                children: [
+                  Container(
+                    height: 150.h,
+                    width: 120.w,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(Constants.borderRadius),
+                      color: context.secondaryColor(),
+                    ),
+                    child: Center(
+                      child: Image.asset(
+                        Assets.bigBurger,
+                      ),
+                    ),
+                  ),
+                  horizontalSpace(16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Cheese burgers",
+                          style: Styles.w500s20,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        verticalSpace(8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "\$8.09",
+                              style: Styles.w500s20,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.star_rate_rounded,
+                                  color: Colors.amber,
+                                  size: 15.dg,
+                                ),
+                                Text(
+                                  "4.2",
+                                  style: Styles.w500s17.copyWith(
+                                    color: context.secondaryColor(),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        verticalSpace(28),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            AppIcon(
+                              icon: Image.asset(
+                                Assets.heartOutlined,
+                                height: 24.h,
+                                width: 24.w,
+                              ),
+                            ),
+                            horizontalSpace(12),
+                            AppIcon(
+                              color: context.primaryColor(),
+                              icon: Image.asset(
+                                Assets.cartOutlined,
+                                color: context.tertiaryColor(),
+                                height: 24.h,
+                                width: 24.w,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
