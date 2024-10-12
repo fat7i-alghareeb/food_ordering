@@ -1,9 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_ordering/features/details/presentation/screens/details_screen.dart';
 import 'package:food_ordering/features/home/presentation/screens/home_screen.dart';
-import 'package:food_ordering/features/on_boarding/presentation/screens/on_boarding_screen.dart';
 import 'package:food_ordering/utils/extensions.dart';
 import 'package:food_ordering/utils/themes.dart';
 
@@ -14,6 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: context.backgroundColor(),
+      ),
+    );
     log(context.screenHeight.toString());
     log(context.screenWidth.toString());
     return ScreenUtilInit(
@@ -24,7 +31,7 @@ class MyApp extends StatelessWidget {
         title: 'Food Ordering',
         theme: lightMode,
         debugShowCheckedModeBanner: false,
-        home: const HomeScreen(),
+        home: const DetailsScreen(),
       ),
     );
   }
