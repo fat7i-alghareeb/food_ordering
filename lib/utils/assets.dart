@@ -15,9 +15,10 @@ class Assets {
   static const String heartOutlined = "images/heart_outlined.png";
   static const String home = "images/home.png";
   static const String menu = "images/menu.png";
-  static const String notifications = "images/notifications.png";
+  static const String notification = "images/notification.png";
   static const String pizza = "images/pizza.png";
   static const String profileCircle = "images/profile_circle.png";
   static const String smallBurger = "images/all.png";
   static const String onBoarding = "images/on_boarding.png";
+  static const String search = "images/search.png";
 }

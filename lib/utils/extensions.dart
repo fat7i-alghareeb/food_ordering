@@ -8,6 +8,7 @@ extension ColorScheme on BuildContext {
   Color onSecondaryColor() => Theme.of(this).colorScheme.onSecondary;
   Color onBackgroundColor() => Theme.of(this).colorScheme.onBackground;
   Color tertiaryColor() => Theme.of(this).colorScheme.tertiary;
+  Color backgroundColor() => Theme.of(this).colorScheme.background;
 }
 
 extension MediaQueryExtension on BuildContext {
