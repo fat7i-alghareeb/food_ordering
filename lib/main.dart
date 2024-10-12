@@ -1,10 +1,11 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_ordering/features/cart/presentation/screens/cart_screen.dart';
 import 'package:food_ordering/utils/extensions.dart';
 import 'package:food_ordering/utils/themes.dart';
+import 'package:beamer/beamer.dart';
+
+import 'utils/routes/app_router.dart';
 
 void main() => runApp(const MyApp());
 
@@ -19,17 +20,16 @@ class MyApp extends StatelessWidget {
         systemNavigationBarColor: context.backgroundColor(),
       ),
     );
-    log(context.screenHeight.toString());
-    log(context.screenWidth.toString());
     return ScreenUtilInit(
       designSize: const Size(390, 850),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routeInformationParser: BeamerParser(),
         title: 'Food Ordering',
         theme: lightMode,
         debugShowCheckedModeBanner: false,
-        home: const CartScreen(),
+        routerDelegate: mainBeamerDelegate,
       ),
     );
   }

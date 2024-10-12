@@ -28,7 +28,7 @@ class HomeBody extends StatelessWidget {
         const CategoriesListView(),
         sliverVerticalSpace(40),
         const RecommendedWidget(),
-        sliverVerticalSpace(100)
+        sliverVerticalSpace(200)
       ],
     );
   }
