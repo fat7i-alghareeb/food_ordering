@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +21,7 @@ class DashBoardNavigatorScreen extends StatefulWidget {
 class _DashBoardNavigatorScreenState extends State<DashBoardNavigatorScreen> {
   @override
   Widget build(BuildContext context) {
+    log("fuck");
     return Scaffold(
       body: Stack(
         children: [
@@ -49,26 +52,25 @@ class CustomBottomNavBar extends StatefulWidget {
 }
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  int _selectedIndex = 0;
-
   void onItemTapped(int selectedIndex) {
     setState(() {
-      _selectedIndex = selectedIndex;
-      switch (_selectedIndex) {
+      Constants.bottomNavSelectedIndex = selectedIndex;
+      switch (Constants.bottomNavSelectedIndex) {
         case 0:
-          bottomNavigatorBeamerKey.currentState!.routerDelegate
-              .beamToNamed(RoutesPaths.home);
+          widget.beamerKey.currentState!.routerDelegate.beamToNamed(
+            RoutesPaths.home,
+          );
           break;
         case 1:
-          bottomNavigatorBeamerKey.currentState!.routerDelegate
+          widget.beamerKey.currentState!.routerDelegate
               .beamToNamed(RoutesPaths.favorite);
           break;
         case 2:
-          bottomNavigatorBeamerKey.currentState!.routerDelegate
+          widget.beamerKey.currentState!.routerDelegate
               .beamToNamed(RoutesPaths.cart);
           break;
         case 3:
-          bottomNavigatorBeamerKey.currentState!.routerDelegate
+          widget.beamerKey.currentState!.routerDelegate
               .beamToNamed(RoutesPaths.profile);
           break;
       }
@@ -94,28 +96,28 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
             setChange: () {
               onItemTapped(0);
             },
-            changing: _selectedIndex == 0 ? true : false,
+            changing: Constants.bottomNavSelectedIndex == 0 ? true : false,
           ),
           NavigatorIcon(
             icon: Assets.heartBold,
             setChange: () {
               onItemTapped(1);
             },
-            changing: _selectedIndex == 1 ? true : false,
+            changing: Constants.bottomNavSelectedIndex == 1 ? true : false,
           ),
           NavigatorIcon(
             icon: Assets.cartBold,
             setChange: () {
               onItemTapped(2);
             },
-            changing: _selectedIndex == 2 ? true : false,
+            changing: Constants.bottomNavSelectedIndex == 2 ? true : false,
           ),
           NavigatorIcon(
             icon: Assets.profileCircle,
             setChange: () {
               onItemTapped(3);
             },
-            changing: _selectedIndex == 3 ? true : false,
+            changing: Constants.bottomNavSelectedIndex == 3 ? true : false,
           ),
         ],
       ),

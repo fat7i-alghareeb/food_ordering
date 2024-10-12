@@ -19,8 +19,8 @@ class FoodListView extends StatelessWidget {
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: FoodWidget(
-            onTap: () =>
-                Beamer.of(context, root: true).beamToNamed(RoutesPaths.details),
+            onTap: () => Beamer.of(context, root: true)
+                .beamToNamed(RoutesPaths.detailsFromHome),
           ),
         ),
       ),

@@ -16,7 +16,10 @@ final mainBeamerDelegate = BeamerDelegate(
     routes: {
       RoutesPaths.onBoardingScreen: (context, state, data) =>
           const OnBoardingScreen(),
-      RoutesPaths.details: (context, state, data) => const DetailsScreen(),
+      RoutesPaths.detailsFromHome: (context, state, data) =>
+          const DetailsScreen(),
+      RoutesPaths.detailsFromCart: (context, state, data) =>
+          const DetailsScreen(),
       RoutesPaths.home: (context, state, data) =>
           const DashBoardNavigatorScreen(),
       RoutesPaths.cart: (context, state, data) =>
@@ -24,13 +27,15 @@ final mainBeamerDelegate = BeamerDelegate(
     },
   ).call,
 );
-
 final bottomNavigatorBeamerKey = GlobalKey<BeamerState>();
+
 final bottomNavigatorBeamerDelegate = BeamerDelegate(
   transitionDelegate: const NoAnimationTransitionDelegate(),
   locationBuilder: RoutesLocationBuilder(
     routes: {
       RoutesPaths.home: (context, state, data) => const HomeScreen(),
+      RoutesPaths.detailsFromCart: (context, state, data) =>
+          const DetailsScreen(),
       RoutesPaths.favorite: (context, state, data) => Scaffold(
             body: Center(
               child: Text(

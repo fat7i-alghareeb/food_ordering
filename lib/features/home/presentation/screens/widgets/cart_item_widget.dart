@@ -16,8 +16,8 @@ class CartItemsWidget extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: FoodWidget(
-            onTap: () =>
-                Beamer.of(context, root: true).beamToNamed(RoutesPaths.details),
+            onTap: () => Beamer.of(context, root: true)
+                .beamToNamed(RoutesPaths.detailsFromCart),
           ),
         );
       },
