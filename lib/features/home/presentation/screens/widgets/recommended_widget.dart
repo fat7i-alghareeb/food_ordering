@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_ordering/utils/extensions.dart';
 
-import '../../../../../shared/widgets/food_widget.dart';
+import '../../../../../shared/widgets/food_list_view.dart';
 import '../../../../../utils/app_text_styles.dart';
 import '../../../../../utils/spacing.dart';
 
@@ -39,7 +39,7 @@ class RecommendedWidget extends StatelessWidget {
             ),
           ),
           verticalSpace(16),
-          const FoodWidget()
+          const FoodListView()
         ],
       ),
     );
