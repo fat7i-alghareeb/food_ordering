@@ -6,6 +6,8 @@ import 'package:food_ordering/features/cart/presentation/screens/cart_screen.dar
 import 'package:food_ordering/utils/extensions.dart';
 import 'package:food_ordering/utils/themes.dart';
 
+import 'utils/routes/bottom_nav_bar/navigator.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
         title: 'Food Ordering',
         theme: lightMode,
         debugShowCheckedModeBanner: false,
-        home: const CartScreen(),
+        home: const DashBoardNavigator(),
       ),
     );
   }
