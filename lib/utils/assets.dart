@@ -21,4 +21,5 @@ class Assets {
   static const String smallBurger = "images/all.png";
   static const String onBoarding = "images/on_boarding.png";
   static const String search = "images/search.png";
+  static const String arrowLeft = "images/arrow-left.png";
 }
