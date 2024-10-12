@@ -1,10 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_ordering/features/details/presentation/screens/details_screen.dart';
-import 'package:food_ordering/features/home/presentation/screens/home_screen.dart';
+import 'package:food_ordering/features/cart/presentation/screens/cart_screen.dart';
 import 'package:food_ordering/utils/extensions.dart';
 import 'package:food_ordering/utils/themes.dart';
 
@@ -31,7 +29,7 @@ class MyApp extends StatelessWidget {
         title: 'Food Ordering',
         theme: lightMode,
         debugShowCheckedModeBanner: false,
-        home: const DetailsScreen(),
+        home: const CartScreen(),
       ),
     );
   }

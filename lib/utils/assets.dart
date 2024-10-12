@@ -22,4 +22,5 @@ class Assets {
   static const String onBoarding = "images/on_boarding.png";
   static const String search = "images/search.png";
   static const String arrowLeft = "images/arrow-left.png";
+  static const String promo = "images/promo.png";
 }
