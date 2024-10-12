@@ -16,10 +16,10 @@ class GradientWidget extends StatelessWidget {
               begin: Alignment.bottomCenter,
               end: Alignment.center,
               colors: [
-                context.tertiaryColor().withOpacity(0.4),
+                context.backgroundColor().withOpacity(.8),
                 //   context.primaryColor().withOpacity(0.3),
-                context.tertiaryColor().withOpacity(0.1),
-                context.tertiaryColor().withOpacity(0),
+                context.backgroundColor().withOpacity(0.6),
+                context.backgroundColor().withOpacity(0),
                 Colors.transparent,
                 Colors.transparent,
               ],

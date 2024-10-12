@@ -4,7 +4,6 @@ import 'package:food_ordering/features/details/presentation/screens/widgets/grad
 import 'package:food_ordering/shared/widgets/app_button.dart';
 import 'package:food_ordering/utils/app_text_styles.dart';
 import 'package:food_ordering/utils/extensions.dart';
-
 import '../../../../shared/widgets/custom_app_bar.dart';
 import '../../../../utils/assets.dart';
 import '../../../../utils/constants.dart';
@@ -72,24 +71,116 @@ class DetailsBody extends StatelessWidget {
             padding: 0,
           ),
           sliverVerticalSpace(16),
+          const FoodMainDetails(),
+          sliverVerticalSpace(32),
+          const QuantityWidget(),
+          sliverVerticalSpace(32),
           SliverToBoxAdapter(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 350.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Constants.borderRadius),
-                    color: context.secondaryColor(),
-                  ),
-                  child: Center(
-                    child: Image.asset(Assets.bigBurger, height: 215.h),
+                Text(
+                  "Description",
+                  style: Styles.w500s17.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                verticalSpace(10),
-                const InfoRow()
+                verticalSpace(5),
+                Text(
+                  Constants.dummyDescription,
+                  style: Styles.w400s16.copyWith(
+                    color: context.onSecondaryColor(),
+                  ),
+                ),
               ],
             ),
-          )
+          ),
+          sliverVerticalSpace(100),
+        ],
+      ),
+    );
+  }
+}
+
+class QuantityWidget extends StatelessWidget {
+  const QuantityWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Cheese burgers", style: Styles.w500s24),
+              Text(
+                "\$8.09",
+                style: Styles.w500s24.copyWith(color: context.primaryColor()),
+              ),
+            ],
+          ),
+          Flexible(
+            child: Container(
+              width: 120.w,
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Constants.buttonRadius),
+                border: Border.all(
+                  color: context.secondaryColor(),
+                  width: 2.0,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.remove,
+                    size: 20.w,
+                  ),
+                  Text(
+                    "1",
+                    style: Styles.w400s20,
+                  ),
+                  Icon(
+                    Icons.add,
+                    size: 20.w,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FoodMainDetails extends StatelessWidget {
+  const FoodMainDetails({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          Container(
+            height: 350.h,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Constants.borderRadius),
+              color: context.secondaryColor(),
+            ),
+            child: Center(
+              child: Image.asset(Assets.bigBurger, height: 215.h),
+            ),
+          ),
+          verticalSpace(10),
+          const InfoRow(),
         ],
       ),
     );

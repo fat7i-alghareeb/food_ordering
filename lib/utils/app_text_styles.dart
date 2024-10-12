@@ -42,6 +42,10 @@ abstract class Styles {
     fontWeight: FontWeight.w400,
     fontSize: 16.sp,
   );
+  static TextStyle w400s20 = TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 20.sp,
+  );
 
   static TextStyle w600s24 = TextStyle(
     fontWeight: FontWeight.w600,
