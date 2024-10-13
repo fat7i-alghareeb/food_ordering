@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_ordering/utils/extensions.dart';
+import 'package:food_ordering/utils/get_it.dart';
 import 'package:food_ordering/utils/themes.dart';
 import 'package:beamer/beamer.dart';
 
 import 'utils/routes/app_router.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setup();
+
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

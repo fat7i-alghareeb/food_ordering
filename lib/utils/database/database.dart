@@ -1,6 +1,8 @@
+import 'dart:io';
+import 'package:path/path.dart' as p;
 import 'package:drift/drift.dart';
-import 'package:drift_flutter/drift_flutter.dart';
-
+import 'package:drift/native.dart';
+import 'package:path_provider/path_provider.dart';
 part 'database.g.dart';
 
 class Foods extends Table {
@@ -22,10 +24,19 @@ class CartItems extends Table {
 
 @DriftDatabase(tables: [Foods, CartItems], daos: [FoodDao, CartDao])
 class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(driftDatabase(name: "my_database"));
+  AppDatabase() : super(_openConnection());
 
   @override
   int get schemaVersion => 1;
+
+  static LazyDatabase _openConnection() {
+    return LazyDatabase(() async {
+      // Use path_provider to get the application documents directory
+      final dbFolder = await getApplicationDocumentsDirectory();
+      final file = File(p.join(dbFolder.path, 'my_database.sqlite'));
+      return NativeDatabase(file);
+    });
+  }
 }
 
 @DriftAccessor(tables: [CartItems, Foods])

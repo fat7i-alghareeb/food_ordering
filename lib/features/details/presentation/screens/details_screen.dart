@@ -24,6 +24,7 @@ class DetailsScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: AppButton(
+                  onTap: () {},
                   color: context.primaryColor(),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
