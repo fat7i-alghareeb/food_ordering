@@ -23,16 +23,14 @@ class _DashBoardNavigatorScreenState extends State<DashBoardNavigatorScreen> {
       body: Stack(
         children: [
           Beamer(
-            key: bottomNavigatorBeamerKey,
-            routerDelegate: bottomNavigatorBeamerDelegate,
+            key: AppRouter.bottomNavigatorBeamerKey,
+            routerDelegate: AppRouter.bottomNavigatorBeamerDelegate,
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-              child: CustomBottomNavBar(
-                beamerKey: bottomNavigatorBeamerKey,
-              ),
+              child: const CustomBottomNavBar(),
             ),
           )
         ],
@@ -42,8 +40,7 @@ class _DashBoardNavigatorScreenState extends State<DashBoardNavigatorScreen> {
 }
 
 class CustomBottomNavBar extends StatefulWidget {
-  const CustomBottomNavBar({super.key, required this.beamerKey});
-  final GlobalKey<BeamerState> beamerKey;
+  const CustomBottomNavBar({super.key});
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
 }
@@ -54,20 +51,21 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       Constants.bottomNavSelectedIndex = selectedIndex;
       switch (Constants.bottomNavSelectedIndex) {
         case 0:
-          widget.beamerKey.currentState!.routerDelegate.beamToNamed(
+          AppRouter.bottomNavigatorBeamerKey.currentState!.routerDelegate
+              .beamToNamed(
             RoutesPaths.home,
           );
           break;
         case 1:
-          widget.beamerKey.currentState!.routerDelegate
+          AppRouter.bottomNavigatorBeamerKey.currentState!.routerDelegate
               .beamToNamed(RoutesPaths.favorite);
           break;
         case 2:
-          widget.beamerKey.currentState!.routerDelegate
+          AppRouter.bottomNavigatorBeamerKey.currentState!.routerDelegate
               .beamToNamed(RoutesPaths.cart);
           break;
         case 3:
-          widget.beamerKey.currentState!.routerDelegate
+          AppRouter.bottomNavigatorBeamerKey.currentState!.routerDelegate
               .beamToNamed(RoutesPaths.profile);
           break;
       }

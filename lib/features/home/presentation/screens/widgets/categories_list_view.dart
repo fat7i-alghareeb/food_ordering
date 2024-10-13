@@ -12,7 +12,7 @@ class CategoriesListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 88.h,
+        height: context.heightPercentage(10),
         child: ListView.builder(
           padding: const EdgeInsets.only(left: 10),
           scrollDirection: Axis.horizontal,
@@ -23,8 +23,8 @@ class CategoriesListView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 60.h,
-                  width: 60.w,
+                  height: context.heightPercentage(7),
+                  width: context.widthPercentage(15.5),
                   child: CircleAvatar(
                     backgroundColor: context.secondaryColor(),
                     child: Image.asset(
@@ -36,13 +36,14 @@ class CategoriesListView extends StatelessWidget {
                 verticalSpace(4),
                 Flexible(
                   child: SizedBox(
-                    width: 60.w,
+                    width: 40.w,
                     child: Text(
                       textAlign: TextAlign.center,
                       "All",
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: Styles.w500s16,
+                      style: Styles.w500s16
+                          .copyWith(fontSize: context.heightPercentage(2)),
                     ),
                   ),
                 )

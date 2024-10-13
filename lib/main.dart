@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         title: 'Food Ordering',
         theme: lightMode,
         debugShowCheckedModeBanner: false,
-        routerDelegate: mainBeamerDelegate,
+        routerDelegate: AppRouter.mainBeamerDelegate,
       ),
     );
   }
