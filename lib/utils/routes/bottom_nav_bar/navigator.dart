@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +19,6 @@ class DashBoardNavigatorScreen extends StatefulWidget {
 class _DashBoardNavigatorScreenState extends State<DashBoardNavigatorScreen> {
   @override
   Widget build(BuildContext context) {
-    log("fuck");
     return Scaffold(
       body: Stack(
         children: [

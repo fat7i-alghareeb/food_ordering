@@ -6,10 +6,6 @@ class CartRepository {
 
   CartRepository(this.cartDao);
 
-  Future<List<CartItem>> getAllCartItems() async {
-    return await cartDao.getAllCartItems();
-  }
-
   Future<void> updateCartItemQuantity(int id, int quantity) async {
     await cartDao.updateCartQuantity(id, quantity);
   }
@@ -25,6 +21,7 @@ class CartRepository {
         name: food.name,
         quantity: cartItem.quantity,
         price: food.price,
+        image: food.image,
       );
     }).toList();
   }

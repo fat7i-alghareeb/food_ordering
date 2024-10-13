@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ordering/features/details/presentation/screens/details_screen.dart';
@@ -10,16 +12,23 @@ import '../app_text_styles.dart';
 import 'bottom_nav_bar/navigator.dart';
 import 'routers_paths.dart';
 
+bool isFirstTime = true;
 final mainBeamerDelegate = BeamerDelegate(
-  initialPath: RoutesPaths.onBoardingScreen,
+  initialPath: isFirstTime ? RoutesPaths.onBoardingScreen : RoutesPaths.home,
   locationBuilder: RoutesLocationBuilder(
     routes: {
       RoutesPaths.onBoardingScreen: (context, state, data) =>
           const OnBoardingScreen(),
-      RoutesPaths.detailsFromHome: (context, state, data) =>
-          const DetailsScreen(),
-      RoutesPaths.detailsFromCart: (context, state, data) =>
-          const DetailsScreen(),
+      RoutesPaths.detailsFromHome: (context, state, data) {
+        final idString = state.pathParameters['id'] ?? "1";
+        final id = int.tryParse(idString) ?? 1;
+        return DetailsScreen(id: id);
+      },
+      RoutesPaths.detailsFromCart: (context, state, data) {
+        final idString = state.pathParameters['id'] ?? "1";
+        final id = int.tryParse(idString) ?? 1;
+        return DetailsScreen(id: id);
+      },
       RoutesPaths.home: (context, state, data) =>
           const DashBoardNavigatorScreen(),
       RoutesPaths.cart: (context, state, data) =>
@@ -34,8 +43,6 @@ final bottomNavigatorBeamerDelegate = BeamerDelegate(
   locationBuilder: RoutesLocationBuilder(
     routes: {
       RoutesPaths.home: (context, state, data) => const HomeScreen(),
-      RoutesPaths.detailsFromCart: (context, state, data) =>
-          const DetailsScreen(),
       RoutesPaths.favorite: (context, state, data) => Scaffold(
             body: Center(
               child: Text(

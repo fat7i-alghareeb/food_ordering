@@ -12,5 +12,13 @@ class HomeRepo {
 
   Future<void> addFoodToCart(int foodId, int quantity) async {
     await cartDao.addFoodToCart(foodId, quantity);
+
+    await foodDao.updateFoodCartStatus(foodId, true);
+  }
+
+  Future<void> removeFoodFromCart(int foodId) async {
+    await cartDao.deleteSingleCartItem(foodId);
+
+    await foodDao.updateFoodCartStatus(foodId, false);
   }
 }

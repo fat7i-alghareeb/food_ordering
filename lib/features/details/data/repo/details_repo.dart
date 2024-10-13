@@ -11,6 +11,7 @@ class DetailsRepo {
   }
 
   Future<void> addFoodToCart(int foodId, int quantity) async {
+    await foodDao.updateFoodCartStatus(foodId, true);
     await cartDao.addFoodToCart(foodId, quantity);
   }
 }
