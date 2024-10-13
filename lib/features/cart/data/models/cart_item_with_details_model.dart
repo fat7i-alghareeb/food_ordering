@@ -1,5 +1,6 @@
 class CartItemWithDetails {
   final int cartItemId;
+  final int foodId;
   final String name;
   final String image;
   final int quantity;
@@ -7,6 +8,7 @@ class CartItemWithDetails {
 
   CartItemWithDetails({
     required this.cartItemId,
+    required this.foodId,
     required this.name,
     required this.quantity,
     required this.price,

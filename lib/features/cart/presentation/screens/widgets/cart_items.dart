@@ -19,7 +19,7 @@ class CartItems extends StatelessWidget {
           child: CartFoodWidget(
             onTap: () => Beamer.of(context, root: true).beamToNamed(RoutesPaths
                 .detailsFromCart
-                .replaceFirst(':id', items[index].cartItemId.toString())),
+                .replaceFirst(':id', items[index].foodId.toString())),
             food: items[index],
           ),
         );

@@ -18,6 +18,7 @@ class CartRepository {
 
       return CartItemWithDetails(
         cartItemId: cartItem.id,
+        foodId: cartItem.foodId,
         name: food.name,
         quantity: cartItem.quantity,
         price: food.price,

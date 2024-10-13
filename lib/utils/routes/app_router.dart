@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ordering/features/details/presentation/screens/details_screen.dart';
 import 'package:food_ordering/utils/extensions.dart';
-
 import '../../features/cart/presentation/screens/cart_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/on_boarding/presentation/screens/on_boarding_screen.dart';
