@@ -18,8 +18,9 @@ class Constants {
       price: drift.Value(8.0),
       delivery: drift.Value(15),
       review: drift.Value(5),
-      ratings: drift.Value(4),
+      ratings: drift.Value(4.0),
       image: drift.Value(Assets.pizza),
+      cart: drift.Value(1),
     ),
     FoodsCompanion(
       name: drift.Value('Pizza'),
@@ -27,8 +28,9 @@ class Constants {
       price: drift.Value(8.0),
       delivery: drift.Value(15),
       review: drift.Value(5),
-      ratings: drift.Value(4),
+      ratings: drift.Value(4.0),
       image: drift.Value(Assets.pizza),
+      cart: drift.Value(0),
     ),
     FoodsCompanion(
       name: drift.Value('burger'),
@@ -36,8 +38,9 @@ class Constants {
       price: drift.Value(12.4),
       delivery: drift.Value(20),
       review: drift.Value(5),
-      ratings: drift.Value(4),
+      ratings: drift.Value(4.4),
       image: drift.Value(Assets.bigBurger),
+      cart: drift.Value(1),
     ),
     FoodsCompanion(
       name: drift.Value('fries'),
@@ -45,8 +48,9 @@ class Constants {
       price: drift.Value(2.4),
       delivery: drift.Value(15),
       review: drift.Value(5),
-      ratings: drift.Value(4),
+      ratings: drift.Value(4.2),
       image: drift.Value(Assets.all),
+      cart: drift.Value(0),
     ),
   ];
 }

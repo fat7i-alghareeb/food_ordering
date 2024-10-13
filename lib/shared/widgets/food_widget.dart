@@ -1,5 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_ordering/features/home/presentation/manger/cubit/home_cubit.dart';
+import 'package:food_ordering/utils/database/database.dart';
 import 'package:food_ordering/utils/extensions.dart';
 
 import '../../utils/app_text_styles.dart';
@@ -8,16 +14,44 @@ import '../../utils/constants.dart';
 import '../../utils/spacing.dart';
 import 'app_icon.dart';
 
-class FoodWidget extends StatelessWidget {
+class FoodWidget extends StatefulWidget {
   const FoodWidget({
     super.key,
     required this.onTap,
+    required this.food,
   });
   final Function() onTap;
+  final Food food;
+
+  @override
+  State<FoodWidget> createState() => _FoodWidgetState();
+}
+
+class _FoodWidgetState extends State<FoodWidget> {
+  late bool isInCart;
+
+  @override
+  void initState() {
+    super.initState();
+    isInCart = widget.food.cart > 0;
+  }
+
+  Future<void> addOrRemoveFromCart() async {
+    if (isInCart) {
+      await context.read<HomeCubit>().removeFoodFromCart(widget.food.id);
+    } else {
+      await context.read<HomeCubit>().addFoodToCart(widget.food.id, 1);
+    }
+
+    setState(() {
+      isInCart = !isInCart;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         width: 318.w,
         decoration: BoxDecoration(
@@ -37,7 +71,7 @@ class FoodWidget extends StatelessWidget {
                 ),
                 child: Center(
                   child: Image.asset(
-                    Assets.bigBurger,
+                    widget.food.image,
                   ),
                 ),
               ),
@@ -47,7 +81,7 @@ class FoodWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Cheese burgers",
+                      widget.food.name,
                       style: Styles.w500s20
                           .copyWith(fontSize: context.widthPercentage(5.3).h),
                       maxLines: 1,
@@ -58,7 +92,7 @@ class FoodWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "\$8.09",
+                          "\$${widget.food.price}",
                           style: Styles.w500s20.copyWith(
                               fontSize: context.widthPercentage(5.3).h),
                         ),
@@ -70,7 +104,7 @@ class FoodWidget extends StatelessWidget {
                               size: 15.dg,
                             ),
                             Text(
-                              "4.2",
+                              "${widget.food.ratings}",
                               style: Styles.w500s17.copyWith(
                                 color: context.secondaryColor(),
                               ),
@@ -91,13 +125,22 @@ class FoodWidget extends StatelessWidget {
                           ),
                         ),
                         horizontalSpace(12),
-                        AppIcon(
-                          color: context.primaryColor(),
-                          icon: Image.asset(
-                            Assets.cartOutlined,
-                            color: context.tertiaryColor(),
-                            height: 24.h,
-                            width: 24.w,
+                        GestureDetector(
+                          onTap: () async {
+                            await addOrRemoveFromCart();
+                          },
+                          child: AppIcon(
+                            color: isInCart
+                                ? context.primaryColor()
+                                : context.tertiaryColor(),
+                            icon: Image.asset(
+                              Assets.cartOutlined,
+                              color: isInCart
+                                  ? context.tertiaryColor()
+                                  : context.onBackgroundColor(),
+                              height: 24.h,
+                              width: 24.w,
+                            ),
                           ),
                         ),
                       ],

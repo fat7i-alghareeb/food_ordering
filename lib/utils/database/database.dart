@@ -10,11 +10,12 @@ class Foods extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get delivery => integer()();
   IntColumn get review => integer()();
-  IntColumn get ratings => integer()();
+  RealColumn get ratings => real()();
   RealColumn get price => real()();
   TextColumn get name => text().withLength(min: 3, max: 60)();
   TextColumn get image => text()();
   TextColumn get description => text()();
+  IntColumn get cart => integer().withDefault(const Constant(0))();
 }
 
 class CartItems extends Table {
@@ -54,6 +55,10 @@ class CartDao extends DatabaseAccessor<AppDatabase> with _$CartDaoMixin {
     ));
   }
 
+  Future<void> deleteSingleCartItem(int foodId) async {
+    await (delete(cartItems)..where((tbl) => tbl.foodId.equals(foodId))).go();
+  }
+
   Future<void> updateCartQuantity(int cartItemId, int newQuantity) async {
     await (update(cartItems)..where((tbl) => tbl.id.equals(cartItemId)))
         .write(CartItemsCompanion(quantity: Value(newQuantity)));
@@ -89,6 +94,11 @@ class FoodDao extends DatabaseAccessor<AppDatabase> with _$FoodDaoMixin {
 
   Future<List<Food>> getAllFoods() async {
     return await select(foods).get();
+  }
+
+  Future<void> updateFoodCartStatus(int foodId, bool isInCart) async {
+    await (update(foods)..where((tbl) => tbl.id.equals(foodId)))
+        .write(FoodsCompanion(cart: Value(isInCart ? 1 : 0)));
   }
 
   Future<void> insertFood(FoodsCompanion food) async {

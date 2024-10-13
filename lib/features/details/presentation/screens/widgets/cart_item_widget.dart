@@ -13,12 +13,12 @@ class CartItemsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList.builder(
       itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: FoodWidget(
-            onTap: () => Beamer.of(context, root: true)
-                .beamToNamed(RoutesPaths.detailsFromCart),
-          ),
+        return const Padding(
+          padding: EdgeInsets.symmetric(vertical: 8),
+          // child: FoodWidget(
+          //   onTap: () => Beamer.of(context, root: true)
+          //       .beamToNamed(RoutesPaths.detailsFromCart),
+          // ),
         );
       },
       itemCount: 3,

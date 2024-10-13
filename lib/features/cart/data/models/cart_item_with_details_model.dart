@@ -2,7 +2,7 @@ class CartItemWithDetails {
   final int cartItemId;
   final String name;
   final int quantity;
-  final int price;
+  final double price;
 
   CartItemWithDetails({
     required this.cartItemId,
