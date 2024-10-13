@@ -7,23 +7,28 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.color,
     required this.child,
+    required this.onTap,
   });
   final Color color;
   final Widget child;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Container(
-        height: 64.h,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(
-            Constants.buttonRadius,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: 64.h,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(
+              Constants.buttonRadius,
+            ),
+            color: color,
           ),
-          color: color,
+          child: Center(child: child),
         ),
-        child: Center(child: child),
       ),
     );
   }

@@ -11,7 +11,7 @@ import 'bottom_nav_bar/navigator.dart';
 import 'routers_paths.dart';
 
 final mainBeamerDelegate = BeamerDelegate(
-  initialPath: RoutesPaths.home,
+  initialPath: RoutesPaths.onBoardingScreen,
   locationBuilder: RoutesLocationBuilder(
     routes: {
       RoutesPaths.onBoardingScreen: (context, state, data) =>

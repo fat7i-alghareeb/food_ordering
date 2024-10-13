@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_ordering/shared/widgets/custom_app_bar.dart';
 import 'package:food_ordering/utils/assets.dart';
 import '../../../../utils/spacing.dart';
-import '../../../home/presentation/screens/widgets/cart_item_widget.dart';
+import '../../../details/presentation/screens/widgets/cart_item_widget.dart';
 import 'widgets/food_pricing_widget.dart';
 
 class CartScreen extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_ordering/utils/routes/routers_paths.dart';
-import 'food_widget.dart';
+import '../../../../../shared/widgets/food_widget.dart';
 
 class FoodListView extends StatelessWidget {
   const FoodListView({

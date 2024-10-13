@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_ordering/utils/database/database.dart';
 import 'package:food_ordering/utils/extensions.dart';
 
 import '../../../../../shared/widgets/app_button.dart';
@@ -10,8 +11,9 @@ import '../../../../../utils/spacing.dart';
 class OnBoardingBody extends StatelessWidget {
   const OnBoardingBody({
     super.key,
+    this.endPage,
   });
-
+  final bool? endPage;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,17 +37,21 @@ class OnBoardingBody extends StatelessWidget {
           ),
         ),
         verticalSpace(40),
-        Flexible(
-          child: AppButton(
-            color: context.onBackgroundColor(),
-            child: Text(
-              'Start Ordering',
-              style: Styles.w600s17.copyWith(
-                color: context.secondaryColor(),
+        if (endPage != null && endPage == true)
+          Flexible(
+            child: AppButton(
+              onTap: () {
+                //final FoodDao foodDao = FoodDao(db);
+              },
+              color: context.onBackgroundColor(),
+              child: Text(
+                'Start Ordering',
+                style: Styles.w600s17.copyWith(
+                  color: context.secondaryColor(),
+                ),
               ),
             ),
-          ),
-        )
+          )
       ],
     );
   }
