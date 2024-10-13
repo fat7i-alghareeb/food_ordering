@@ -23,13 +23,13 @@ class Constants {
       cart: drift.Value(0),
     ),
     FoodsCompanion(
-      name: drift.Value('Pizza'),
+      name: drift.Value('fruits'),
       description: drift.Value(Constants.dummyDescription),
       price: drift.Value(8.0),
       delivery: drift.Value(15),
       review: drift.Value(5),
       ratings: drift.Value(4.0),
-      image: drift.Value(Assets.pizza),
+      image: drift.Value(Assets.fruits),
       cart: drift.Value(0),
     ),
     FoodsCompanion(

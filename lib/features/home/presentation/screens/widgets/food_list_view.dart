@@ -2,28 +2,15 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_ordering/features/home/data/repo/home_repo.dart';
 import 'package:food_ordering/features/home/presentation/manger/cubit/home_cubit.dart';
 import 'package:food_ordering/features/home/presentation/manger/cubit/home_state.dart';
 import 'package:food_ordering/utils/routes/routers_paths.dart';
 import '../../../../../shared/widgets/food_widget.dart';
 
-class FoodListView extends StatefulWidget {
+class FoodListView extends StatelessWidget {
   const FoodListView({
     super.key,
   });
-
-  @override
-  State<FoodListView> createState() => _FoodListViewState();
-}
-
-class _FoodListViewState extends State<FoodListView> {
-  @override
-  void initState() {
-    super.initState();
-
-    context.read<HomeCubit>().fetchFoods();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +27,11 @@ class _FoodListViewState extends State<FoodListView> {
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: FoodWidget(
-                  onTap: () => Beamer.of(context, root: true)
-                      .beamToNamed(RoutesPaths.detailsFromHome),
+                  onTap: () {
+                    Beamer.of(context, root: true).beamToNamed(RoutesPaths
+                        .detailsFromHome
+                        .replaceFirst(':id', foods[index].id.toString()));
+                  },
                   food: foods[index],
                 ),
               ),

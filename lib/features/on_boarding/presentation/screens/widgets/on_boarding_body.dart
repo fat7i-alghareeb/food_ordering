@@ -58,6 +58,7 @@ class _OnBoardingBodyState extends State<OnBoardingBody> {
             child: AppButton(
               onTap: () async {
                 await getIt.get<FoodDao>().deleteAllFoods();
+                await getIt.get<CartDao>().deleteAllFoods();
 
                 for (FoodsCompanion item in Constants.foodItems) {
                   await getIt.get<FoodDao>().insertFood(item);

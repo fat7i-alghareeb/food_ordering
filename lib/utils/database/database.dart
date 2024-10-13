@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:drift/drift.dart';
@@ -54,6 +55,7 @@ class CartDao extends DatabaseAccessor<AppDatabase> with _$CartDaoMixin {
       final newQuantity = existingItem.quantity + quantity;
       await updateCartQuantity(existingItem.id, newQuantity);
     } else {
+      log(foodId.toString());
       await into(cartItems).insert(CartItemsCompanion(
         foodId: Value(foodId),
         quantity: Value(quantity),
@@ -74,16 +76,21 @@ class CartDao extends DatabaseAccessor<AppDatabase> with _$CartDaoMixin {
     return await select(cartItems).get();
   }
 
+  Future<void> deleteAllFoods() async {
+    await delete(cartItems).go();
+  }
+
   Future<List<dynamic>> getCartItemsWithFoodDetails() async {
     final query = select(cartItems).join(
       [
         leftOuterJoin(foods, foods.id.equalsExp(cartItems.foodId)),
       ],
     );
+    log("test");
 
     return await query.map((row) {
       final cartItem = row.readTable(cartItems);
-      final food = row.readTable(foods);
+      final food = row.readTableOrNull(foods);
       return {
         'cartItem': cartItem,
         'food': food,

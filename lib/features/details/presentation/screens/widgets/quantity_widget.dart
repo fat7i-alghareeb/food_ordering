@@ -8,8 +8,11 @@ import '../../../../../utils/constants.dart';
 class QuantityWidget extends StatelessWidget {
   const QuantityWidget({
     super.key,
+    required this.name,
+    required this.price,
   });
-
+  final String name;
+  final String price;
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
@@ -19,9 +22,9 @@ class QuantityWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Cheese burgers", style: Styles.w500s24),
+              Text(name, style: Styles.w500s24),
               Text(
-                "\$8.09",
+                "\$$price",
                 style: Styles.w500s24.copyWith(color: context.primaryColor()),
               ),
             ],

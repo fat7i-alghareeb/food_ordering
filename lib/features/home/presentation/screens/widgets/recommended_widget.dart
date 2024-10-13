@@ -18,7 +18,7 @@ class RecommendedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: BlocProvider(
-        create: (context) => HomeCubit(getIt.get<HomeRepo>()),
+        create: (context) => HomeCubit(getIt.get<HomeRepo>())..fetchFoods(),
         child: Column(
           children: [
             Padding(

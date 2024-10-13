@@ -19,7 +19,7 @@ void main() async {
 
 Future<bool> _checkIfFirstTime() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  // await prefs.clear();
+  //await prefs.clear();
   return prefs.getBool('isFirstTime') ?? true;
 }
 

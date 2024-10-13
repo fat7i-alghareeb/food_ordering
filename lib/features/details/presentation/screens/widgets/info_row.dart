@@ -6,8 +6,14 @@ import '../../../../../utils/constants.dart';
 import 'info_widget.dart';
 
 class InfoRow extends StatelessWidget {
-  const InfoRow({super.key});
-
+  const InfoRow(
+      {super.key,
+      required this.deliveryTime,
+      required this.reviews,
+      required this.ratings});
+  final String deliveryTime;
+  final String reviews;
+  final String ratings;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,28 +30,28 @@ class InfoRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const InfoWidget(
+            InfoWidget(
               infoIcon: Icons.access_time,
               infoName: "Delivery",
-              infoDetails: "15mins",
+              infoDetails: "$deliveryTime mins",
             ),
             VerticalDivider(
               color: context.onSecondaryColor().withOpacity(.5),
               thickness: 1,
             ),
-            const InfoWidget(
+            InfoWidget(
               infoIcon: Icons.chat_bubble_outline,
               infoName: "Review",
-              infoDetails: "32+",
+              infoDetails: "$reviews+",
             ),
             VerticalDivider(
               color: context.onSecondaryColor().withOpacity(.5),
               thickness: 1,
             ),
-            const InfoWidget(
+            InfoWidget(
               infoIcon: Icons.star_border_rounded,
               infoName: "Ratings",
-              infoDetails: "4.2",
+              infoDetails: ratings,
             ),
           ],
         ),
