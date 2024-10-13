@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:drift/drift.dart';
@@ -21,7 +20,6 @@ class Foods extends Table {
 class CartItems extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get quantity => integer()();
-
   IntColumn get foodId => integer().references(Foods, #id)();
 }
 
@@ -34,7 +32,6 @@ class AppDatabase extends _$AppDatabase {
 
   static LazyDatabase _openConnection() {
     return LazyDatabase(() async {
-      // Use path_provider to get the application documents directory
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'my_database.sqlite'));
       return NativeDatabase(file);
@@ -49,10 +46,19 @@ class CartDao extends DatabaseAccessor<AppDatabase> with _$CartDaoMixin {
   CartDao(this.db) : super(db);
 
   Future<void> addFoodToCart(int foodId, int quantity) async {
-    await into(cartItems).insert(CartItemsCompanion(
-      foodId: Value(foodId),
-      quantity: Value(quantity),
-    ));
+    final existingItem = await (select(cartItems)
+          ..where((tbl) => tbl.foodId.equals(foodId)))
+        .getSingleOrNull();
+
+    if (existingItem != null) {
+      final newQuantity = existingItem.quantity + quantity;
+      await updateCartQuantity(existingItem.id, newQuantity);
+    } else {
+      await into(cartItems).insert(CartItemsCompanion(
+        foodId: Value(foodId),
+        quantity: Value(quantity),
+      ));
+    }
   }
 
   Future<void> deleteSingleCartItem(int foodId) async {

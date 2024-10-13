@@ -21,6 +21,7 @@ class CartRepository {
         name: food.name,
         quantity: cartItem.quantity,
         price: food.price,
+        image: food.image,
       );
     }).toList();
   }

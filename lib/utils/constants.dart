@@ -20,7 +20,7 @@ class Constants {
       review: drift.Value(5),
       ratings: drift.Value(4.0),
       image: drift.Value(Assets.pizza),
-      cart: drift.Value(1),
+      cart: drift.Value(0),
     ),
     FoodsCompanion(
       name: drift.Value('Pizza'),
@@ -40,7 +40,7 @@ class Constants {
       review: drift.Value(5),
       ratings: drift.Value(4.4),
       image: drift.Value(Assets.bigBurger),
-      cart: drift.Value(1),
+      cart: drift.Value(0),
     ),
     FoodsCompanion(
       name: drift.Value('fries'),

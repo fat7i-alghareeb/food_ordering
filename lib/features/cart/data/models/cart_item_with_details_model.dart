@@ -1,6 +1,7 @@
 class CartItemWithDetails {
   final int cartItemId;
   final String name;
+  final String image;
   final int quantity;
   final double price;
 
@@ -9,5 +10,6 @@ class CartItemWithDetails {
     required this.name,
     required this.quantity,
     required this.price,
+    required this.image,
   });
 }
