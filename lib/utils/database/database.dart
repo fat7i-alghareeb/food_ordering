@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:drift/drift.dart';
@@ -10,8 +11,9 @@ class Foods extends Table {
   IntColumn get delivery => integer()();
   IntColumn get review => integer()();
   IntColumn get ratings => integer()();
-  IntColumn get price => integer()();
-  TextColumn get name => text().withLength(min: 6, max: 60)();
+  RealColumn get price => real()();
+  TextColumn get name => text().withLength(min: 3, max: 60)();
+  TextColumn get image => text()();
   TextColumn get description => text()();
 }
 
@@ -91,6 +93,14 @@ class FoodDao extends DatabaseAccessor<AppDatabase> with _$FoodDaoMixin {
 
   Future<void> insertFood(FoodsCompanion food) async {
     await into(foods).insert(food);
+  }
+
+  Future<void> deleteAllFoods() async {
+    await delete(foods).go();
+  }
+
+  Future<void> deleteSingleFood(int id) async {
+    await (delete(foods)..where((tbl) => tbl.id.equals(id))).go();
   }
 
   Future<Food> getSingleFood(int id) async {

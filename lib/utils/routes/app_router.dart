@@ -10,8 +10,9 @@ import '../app_text_styles.dart';
 import 'bottom_nav_bar/navigator.dart';
 import 'routers_paths.dart';
 
+bool isFirstTime = true;
 final mainBeamerDelegate = BeamerDelegate(
-  initialPath: RoutesPaths.onBoardingScreen,
+  initialPath: isFirstTime ? RoutesPaths.onBoardingScreen : RoutesPaths.home,
   locationBuilder: RoutesLocationBuilder(
     routes: {
       RoutesPaths.onBoardingScreen: (context, state, data) =>

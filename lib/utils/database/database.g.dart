@@ -36,17 +36,22 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, Food> {
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _priceMeta = const VerificationMeta('price');
   @override
-  late final GeneratedColumn<int> price = GeneratedColumn<int>(
+  late final GeneratedColumn<double> price = GeneratedColumn<double>(
       'price', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.double, requiredDuringInsert: true);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 6, maxTextLength: 60),
+          GeneratedColumn.checkTextLength(minTextLength: 3, maxTextLength: 60),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<String> image = GeneratedColumn<String>(
+      'image', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _descriptionMeta =
       const VerificationMeta('description');
   @override
@@ -55,7 +60,7 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, Food> {
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, delivery, review, ratings, price, name, description];
+      [id, delivery, review, ratings, price, name, image, description];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -99,6 +104,12 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, Food> {
     } else if (isInserting) {
       context.missing(_nameMeta);
     }
+    if (data.containsKey('image')) {
+      context.handle(
+          _imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
+    } else if (isInserting) {
+      context.missing(_imageMeta);
+    }
     if (data.containsKey('description')) {
       context.handle(
           _descriptionMeta,
@@ -125,9 +136,11 @@ class $FoodsTable extends Foods with TableInfo<$FoodsTable, Food> {
       ratings: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}ratings'])!,
       price: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}price'])!,
+          .read(DriftSqlType.double, data['${effectivePrefix}price'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      image: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}image'])!,
       description: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
     );
@@ -144,8 +157,9 @@ class Food extends DataClass implements Insertable<Food> {
   final int delivery;
   final int review;
   final int ratings;
-  final int price;
+  final double price;
   final String name;
+  final String image;
   final String description;
   const Food(
       {required this.id,
@@ -154,6 +168,7 @@ class Food extends DataClass implements Insertable<Food> {
       required this.ratings,
       required this.price,
       required this.name,
+      required this.image,
       required this.description});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -162,8 +177,9 @@ class Food extends DataClass implements Insertable<Food> {
     map['delivery'] = Variable<int>(delivery);
     map['review'] = Variable<int>(review);
     map['ratings'] = Variable<int>(ratings);
-    map['price'] = Variable<int>(price);
+    map['price'] = Variable<double>(price);
     map['name'] = Variable<String>(name);
+    map['image'] = Variable<String>(image);
     map['description'] = Variable<String>(description);
     return map;
   }
@@ -176,6 +192,7 @@ class Food extends DataClass implements Insertable<Food> {
       ratings: Value(ratings),
       price: Value(price),
       name: Value(name),
+      image: Value(image),
       description: Value(description),
     );
   }
@@ -188,8 +205,9 @@ class Food extends DataClass implements Insertable<Food> {
       delivery: serializer.fromJson<int>(json['delivery']),
       review: serializer.fromJson<int>(json['review']),
       ratings: serializer.fromJson<int>(json['ratings']),
-      price: serializer.fromJson<int>(json['price']),
+      price: serializer.fromJson<double>(json['price']),
       name: serializer.fromJson<String>(json['name']),
+      image: serializer.fromJson<String>(json['image']),
       description: serializer.fromJson<String>(json['description']),
     );
   }
@@ -201,8 +219,9 @@ class Food extends DataClass implements Insertable<Food> {
       'delivery': serializer.toJson<int>(delivery),
       'review': serializer.toJson<int>(review),
       'ratings': serializer.toJson<int>(ratings),
-      'price': serializer.toJson<int>(price),
+      'price': serializer.toJson<double>(price),
       'name': serializer.toJson<String>(name),
+      'image': serializer.toJson<String>(image),
       'description': serializer.toJson<String>(description),
     };
   }
@@ -212,8 +231,9 @@ class Food extends DataClass implements Insertable<Food> {
           int? delivery,
           int? review,
           int? ratings,
-          int? price,
+          double? price,
           String? name,
+          String? image,
           String? description}) =>
       Food(
         id: id ?? this.id,
@@ -222,6 +242,7 @@ class Food extends DataClass implements Insertable<Food> {
         ratings: ratings ?? this.ratings,
         price: price ?? this.price,
         name: name ?? this.name,
+        image: image ?? this.image,
         description: description ?? this.description,
       );
   Food copyWithCompanion(FoodsCompanion data) {
@@ -232,6 +253,7 @@ class Food extends DataClass implements Insertable<Food> {
       ratings: data.ratings.present ? data.ratings.value : this.ratings,
       price: data.price.present ? data.price.value : this.price,
       name: data.name.present ? data.name.value : this.name,
+      image: data.image.present ? data.image.value : this.image,
       description:
           data.description.present ? data.description.value : this.description,
     );
@@ -246,14 +268,15 @@ class Food extends DataClass implements Insertable<Food> {
           ..write('ratings: $ratings, ')
           ..write('price: $price, ')
           ..write('name: $name, ')
+          ..write('image: $image, ')
           ..write('description: $description')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode =>
-      Object.hash(id, delivery, review, ratings, price, name, description);
+  int get hashCode => Object.hash(
+      id, delivery, review, ratings, price, name, image, description);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -264,6 +287,7 @@ class Food extends DataClass implements Insertable<Food> {
           other.ratings == this.ratings &&
           other.price == this.price &&
           other.name == this.name &&
+          other.image == this.image &&
           other.description == this.description);
 }
 
@@ -272,8 +296,9 @@ class FoodsCompanion extends UpdateCompanion<Food> {
   final Value<int> delivery;
   final Value<int> review;
   final Value<int> ratings;
-  final Value<int> price;
+  final Value<double> price;
   final Value<String> name;
+  final Value<String> image;
   final Value<String> description;
   const FoodsCompanion({
     this.id = const Value.absent(),
@@ -282,6 +307,7 @@ class FoodsCompanion extends UpdateCompanion<Food> {
     this.ratings = const Value.absent(),
     this.price = const Value.absent(),
     this.name = const Value.absent(),
+    this.image = const Value.absent(),
     this.description = const Value.absent(),
   });
   FoodsCompanion.insert({
@@ -289,22 +315,25 @@ class FoodsCompanion extends UpdateCompanion<Food> {
     required int delivery,
     required int review,
     required int ratings,
-    required int price,
+    required double price,
     required String name,
+    required String image,
     required String description,
   })  : delivery = Value(delivery),
         review = Value(review),
         ratings = Value(ratings),
         price = Value(price),
         name = Value(name),
+        image = Value(image),
         description = Value(description);
   static Insertable<Food> custom({
     Expression<int>? id,
     Expression<int>? delivery,
     Expression<int>? review,
     Expression<int>? ratings,
-    Expression<int>? price,
+    Expression<double>? price,
     Expression<String>? name,
+    Expression<String>? image,
     Expression<String>? description,
   }) {
     return RawValuesInsertable({
@@ -314,6 +343,7 @@ class FoodsCompanion extends UpdateCompanion<Food> {
       if (ratings != null) 'ratings': ratings,
       if (price != null) 'price': price,
       if (name != null) 'name': name,
+      if (image != null) 'image': image,
       if (description != null) 'description': description,
     });
   }
@@ -323,8 +353,9 @@ class FoodsCompanion extends UpdateCompanion<Food> {
       Value<int>? delivery,
       Value<int>? review,
       Value<int>? ratings,
-      Value<int>? price,
+      Value<double>? price,
       Value<String>? name,
+      Value<String>? image,
       Value<String>? description}) {
     return FoodsCompanion(
       id: id ?? this.id,
@@ -333,6 +364,7 @@ class FoodsCompanion extends UpdateCompanion<Food> {
       ratings: ratings ?? this.ratings,
       price: price ?? this.price,
       name: name ?? this.name,
+      image: image ?? this.image,
       description: description ?? this.description,
     );
   }
@@ -353,10 +385,13 @@ class FoodsCompanion extends UpdateCompanion<Food> {
       map['ratings'] = Variable<int>(ratings.value);
     }
     if (price.present) {
-      map['price'] = Variable<int>(price.value);
+      map['price'] = Variable<double>(price.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
+    }
+    if (image.present) {
+      map['image'] = Variable<String>(image.value);
     }
     if (description.present) {
       map['description'] = Variable<String>(description.value);
@@ -373,6 +408,7 @@ class FoodsCompanion extends UpdateCompanion<Food> {
           ..write('ratings: $ratings, ')
           ..write('price: $price, ')
           ..write('name: $name, ')
+          ..write('image: $image, ')
           ..write('description: $description')
           ..write(')'))
         .toString();
@@ -616,8 +652,9 @@ typedef $$FoodsTableCreateCompanionBuilder = FoodsCompanion Function({
   required int delivery,
   required int review,
   required int ratings,
-  required int price,
+  required double price,
   required String name,
+  required String image,
   required String description,
 });
 typedef $$FoodsTableUpdateCompanionBuilder = FoodsCompanion Function({
@@ -625,8 +662,9 @@ typedef $$FoodsTableUpdateCompanionBuilder = FoodsCompanion Function({
   Value<int> delivery,
   Value<int> review,
   Value<int> ratings,
-  Value<int> price,
+  Value<double> price,
   Value<String> name,
+  Value<String> image,
   Value<String> description,
 });
 
@@ -651,8 +689,9 @@ class $$FoodsTableTableManager extends RootTableManager<
             Value<int> delivery = const Value.absent(),
             Value<int> review = const Value.absent(),
             Value<int> ratings = const Value.absent(),
-            Value<int> price = const Value.absent(),
+            Value<double> price = const Value.absent(),
             Value<String> name = const Value.absent(),
+            Value<String> image = const Value.absent(),
             Value<String> description = const Value.absent(),
           }) =>
               FoodsCompanion(
@@ -662,6 +701,7 @@ class $$FoodsTableTableManager extends RootTableManager<
             ratings: ratings,
             price: price,
             name: name,
+            image: image,
             description: description,
           ),
           createCompanionCallback: ({
@@ -669,8 +709,9 @@ class $$FoodsTableTableManager extends RootTableManager<
             required int delivery,
             required int review,
             required int ratings,
-            required int price,
+            required double price,
             required String name,
+            required String image,
             required String description,
           }) =>
               FoodsCompanion.insert(
@@ -680,6 +721,7 @@ class $$FoodsTableTableManager extends RootTableManager<
             ratings: ratings,
             price: price,
             name: name,
+            image: image,
             description: description,
           ),
         ));
@@ -708,13 +750,18 @@ class $$FoodsTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<int> get price => $state.composableBuilder(
+  ColumnFilters<double> get price => $state.composableBuilder(
       column: $state.table.price,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
   ColumnFilters<String> get name => $state.composableBuilder(
       column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get image => $state.composableBuilder(
+      column: $state.table.image,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -760,13 +807,18 @@ class $$FoodsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<int> get price => $state.composableBuilder(
+  ColumnOrderings<double> get price => $state.composableBuilder(
       column: $state.table.price,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
   ColumnOrderings<String> get name => $state.composableBuilder(
       column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get image => $state.composableBuilder(
+      column: $state.table.image,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
